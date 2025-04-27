@@ -9,10 +9,21 @@ Gui, Add, Button, x10 y220 w100 h30 gSetProxy, Set Proxy
 Gui, Add, Button, x120 y220 w100 h30 gDisableProxy, Disable Proxy
 Gui, Add, Button, x230 y220 w80 h30 gCheckProxy, Check Proxy
 Gui, Add, Text, x10 y260 w300 h50 vProxyStatus, Proxy Status: Not checked
-; Note: Removed initial Gui, Show to keep GUI hidden until hotkey is pressed
 
 ; Load proxies from file
 ProxyArray := []
+
+if (!FileExist("proxies.txt")) {
+    FileAppend,
+    (
+; Add proxies in the format server:port, one per line
+; Example:
+; 127.0.0.1:10808
+; 192.168.42.129:8080
+    ), proxies.txt
+    GuiControl,, ProxyStatus, Created proxies.txt. Add proxies to the file.
+}
+
 FileRead, ProxyFile, proxies.txt
 if (ErrorLevel) {
     MsgBox, Could not read proxies.txt
@@ -22,7 +33,7 @@ if (ErrorLevel) {
 Loop, parse, ProxyFile, `n, `r
 {
     line := Trim(A_LoopField)
-    if (line != "") {
+    if (line != "" && SubStr(line, 1, 1) != ";") {  ; Ignore empty lines and comments
         ProxyArray.Push(line)
     }
 }
@@ -31,6 +42,11 @@ Loop, parse, ProxyFile, `n, `r
 GuiControl, , ProxyList, |  ; Clear the ListBox
 for index, proxy in ProxyArray {
     GuiControl, , ProxyList, %proxy%
+}
+
+; Update status if no valid proxies found
+if (ProxyArray.Length() = 0) {
+    GuiControl,, ProxyStatus, No valid proxies found in proxies.txt
 }
 
 return
@@ -85,14 +101,10 @@ CheckProxy:
     }
 return
 
-; GuiClose:
-; ExitApp
-; return
-
 GuiClose:
     Gui, Cancel
 
 ; Hotkey to toggle GUI (Ctrl + Alt + M)
 ^!m::
-    Gui, Show, w320 h310, Proxy Manager
+    Gui, Show, w320 h285, Proxy Manager
 return
