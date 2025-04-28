@@ -4,7 +4,7 @@
 AutoHotkey Proxy Manager is a lightweight Windows utility built with AutoHotkey to manage proxy settings via a graphical user interface (GUI). It allows users to load a list of proxy servers from a text file, select a proxy, enable it in Windows, disable the proxy, and check the current proxy status. The GUI can be opened using the `Ctrl + Alt + M` hotkey, making it convenient for quick proxy management.
 
 ## Features
-- Load proxy servers and ports from a `proxies.txt` file.
+- Load proxy servers and ports from a `proxies.txt` file, refreshed every time the GUI is opened.
 - Display proxies in a selectable list within a GUI.
 - Enable a selected proxy in Windows Internet Settings.
 - Disable the active proxy with a single click.
@@ -30,11 +30,12 @@ AutoHotkey Proxy Manager is a lightweight Windows utility built with AutoHotkey 
 
 ## Usage
 1. Launch the script.
-2. Press `Ctrl + Alt + M` to open the GUI.
-3. Select a proxy from the list (if any are loaded from `proxies.txt`).
+2. Press `Ctrl + Alt + M` to open the GUI and load the latest proxies from `proxies.txt`.
+3. Select a proxy from the list (if any are loaded).
 4. Click **Set Proxy** to enable the selected proxy in Windows.
 5. Click **Disable Proxy** to turn off the proxy.
 6. Click **Check Proxy** to view the current proxy status.
+7. Close the GUI using the window's close button to hide it; the script remains running.
 
 ## File Structure
 - `ProxyManager.ahk`: The main AutoHotkey script.
@@ -57,9 +58,16 @@ AutoHotkey Proxy Manager is a lightweight Windows utility built with AutoHotkey 
 ## Notes
 - If `proxies.txt` is missing, the script creates it with commented instructions and example proxies. Edit the file to add your proxies.
 - Lines in `proxies.txt` starting with `;` are treated as comments and ignored.
+- Proxies are reloaded from `proxies.txt` each time the GUI is opened, reflecting any changes made to the file.
 - Ensure `proxies.txt` is correctly formatted to avoid loading issues.
 - Run the script as administrator if you encounter permission errors when setting proxies.
 - The script modifies the Windows registry under `HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings`.
+
+## Contributing
+Contributions are welcome! Please:
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Submit a pull request with a clear description of changes.
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
