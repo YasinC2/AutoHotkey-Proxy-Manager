@@ -16,10 +16,10 @@ ProxyArray := []
 if (!FileExist("proxies.txt")) {
     FileAppend,
     (
-; Add proxies in the format server:port, one per line
-; Example:
-; 127.0.0.1:10808
-; 192.168.42.129:8080
+    ; Add proxies in the format server:port, one per line
+    ; Example:
+    ; 127.0.0.1:10808
+    ; 192.168.42.129:8080
     ), proxies.txt
     GuiControl,, ProxyStatus, Created proxies.txt. Add proxies to the file.
 }
