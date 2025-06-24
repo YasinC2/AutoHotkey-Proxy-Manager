@@ -25,11 +25,12 @@ ProxyArray := []
 SelectedProxy := ""
 
 ; GUI Creation (initially hidden)
-Gui, Add, ListBox, x10 y10 w300 h100 vProxyList gSelectProxy,
-Gui, Add, Button, x10 y110 w100 h30 gSetProxy, Set Proxy
-Gui, Add, Button, x115 y110 w100 h30 gDisableProxy, Disable Proxy
-Gui, Add, Button, x220 y110 w90 h30 gCheckProxy, Check Proxy
-Gui, Add, Text, x10 y150 w300 h50 vProxyStatus, Proxy Status: Not checked
+Gui, Add, ListBox, x10 y10 w195 h120 vProxyList gSelectProxy,
+Gui, Add, Button, x210 y10 w100 h25 gSetProxy, Set Proxy
+Gui, Add, Button, x210 y40 w100 h25 gDisableProxy, Disable Proxy
+Gui, Add, Button, x210 y70 w100 h25 gCheckProxy, Check Proxy
+Gui, Add, Button, x210 y100 w100 h25 gOpenProxiesFile, Open Proxies File
+Gui, Add, Text, x10 y135 w300 h50 vProxyStatus, Proxy Status: Not checked
 
 ; Subroutine to load proxies from file
 LoadProxies:
@@ -125,12 +126,16 @@ CheckProxy:
     }
 return
 
+OpenProxiesFile:
+    Run, %A_ScriptDir%\proxies.txt
+return
+
 GuiClose:
     Gui, Cancel
 return
 
 ; Hotkey to open GUI and load proxies (Ctrl + Alt + M)
 ^!m::
-    Gui, Show, w320 h175, Proxy Manager
+    Gui, Show, w320 h160, Proxy Manager
     Gosub, LoadProxies
 return
