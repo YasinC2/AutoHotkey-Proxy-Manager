@@ -2,7 +2,7 @@
     AutoHotkey Proxy Manager
     Author: Yasin Asasi
     GitHub: https://github.com/YasinC2/AutoHotkey-Proxy-Manager
-    Version: 1.0.0
+    Version: 1.2.0
     Description: A Windows utility to manage proxy settings via a GUI. Loads proxies from proxies.txt,
                  allows selection and enabling/disabling of proxies, and checks proxy status.
     Usage: Run the script, press Ctrl+Alt+M to open the GUI, select a proxy, and use buttons to manage proxies.
